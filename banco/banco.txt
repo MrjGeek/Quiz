@@ -1,0 +1,77 @@
+CREATE DATABASE quiz
+  WITH ENCODING='UTF8'
+       CONNECTION LIMIT=-1;
+
+CREATE TABLE public.quiz
+(
+   idquiz serial, 
+   title text, 
+   PRIMARY KEY (idquiz)
+) 
+WITH (
+  OIDS = FALSE
+)
+;
+
+CREATE TABLE public.question
+(
+   idquestion serial, 
+   quiz_idquiz integer, 
+   title text, 
+   type text,
+   PRIMARY KEY (idquestion), 
+   FOREIGN KEY (quiz_idquiz) REFERENCES public.quiz (idquiz) ON UPDATE NO ACTION ON DELETE NO ACTION
+) 
+WITH (
+  OIDS = FALSE
+)
+;
+
+
+
+CREATE TABLE public.people
+(
+   name text, 
+   email text, 
+   idpeople serial, 
+   PRIMARY KEY (idpeople)
+) 
+WITH (
+  OIDS = FALSE
+)
+;
+
+CREATE TABLE public.answer
+(
+   idanswer serial, 
+   question_idquestion integer, 
+   is_correct boolean, 
+   title text, 
+   CONSTRAINT idanswer PRIMARY KEY (idanswer), 
+   FOREIGN KEY (question_idquestion) REFERENCES public.question (idquestion) ON UPDATE NO ACTION ON DELETE NO ACTION
+) 
+WITH (
+  OIDS = FALSE
+)
+;
+
+CREATE TABLE public.peopleanswer
+(
+   idpeopleanswer serial, 
+   question_idquestion integer, 
+   answer_idanswer integer, 
+   answertext text, 
+   datequizbegin date, 
+   hourquizbegin time with time zone, 
+   datequizfinish date, 
+   hourquizfinish time with time zone, 
+   people_idpeople integer, 
+   PRIMARY KEY (idpeopleanswer)
+) 
+WITH (
+  OIDS = FALSE
+)
+;
+
+
+
