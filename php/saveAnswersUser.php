@@ -7,7 +7,7 @@
 	$questions     = array();
 
 	$query = "	INSERT INTO people(name, email) 
-				VALUES ($name, $email) 
+				VALUES ('$name', '$email') 
 				RETURNING idpeople;";
 	$rs       = pg_query($query);
 	$row      = pg_fetch_assoc($rs);
